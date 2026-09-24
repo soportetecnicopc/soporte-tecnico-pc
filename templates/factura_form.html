@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Nueva Factura{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Generar Factura</h2>
+
+    <!-- Enlace directo a configuración -->
+    <div class="mb-3">
+        <a href="{{ url_for('configuracion.configuracion') }}" class="btn btn-sm btn-outline-info">
+            Configuración (IVA / Ganancia)
+        </a>
+    </div>
+
+    <form action="/facturas/crear" method="POST" class="factura-card">
+        <div class="form-group mb-3">
+            <label for="cliente">Cliente:</label>
+            <select class="form-control" name="id_cliente" id="cliente" required>
+                {% for c in clientes %}
+                <option value="{{ c.id_cliente }}">{{ c.nombres }} {{ c.apellidos }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="producto">Producto:</label>
+            <select class="form-control" name="id_producto" id="producto" required>
+                {% for p in productos %}
+                <option value="{{ p.id_producto }}">{{ p.nombre }} - ${{ "%.2f"|format(p.precio) }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" class="form-control" name="cantidad" min="1" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Generar Factura</button>
+    </form>
+</div>
+{% endblock %}

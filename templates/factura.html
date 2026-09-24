@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Factura{% endblock %}
+
+{% block content %}
+<div class="container mt-4 factura-card">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-3 factura-header">
+        <h2>Factura #{{ factura.id_factura }}</h2>
+        <img src="/static/logo.png" alt="Logo Empresa" style="height:60px;">
+    </div>
+
+    <!-- Datos del cliente -->
+    <div class="factura-cliente mb-3">
+        <h5>Datos del Cliente</h5>
+        <p><strong>Nombre:</strong> {{ cliente.nombres }} {{ cliente.apellidos }}</p>
+        <p><strong>Cédula:</strong> {{ cliente.cedula }}</p>
+        <p><strong>Teléfono:</strong> {{ cliente.telefono_celular }}</p>
+    </div>
+
+    <!-- Detalle de productos -->
+    <h4>Detalle de la compra</h4>
+    <table class="table table-striped table-bordered factura-detalle">
+        <thead class="table-light">
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Precio con Ganancia</th>
+                <th>Subtotal</th>
+                <th>IVA</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in detalle %}
+            <tr>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>${{ "%.2f"|format(item.precio_unitario) }}</td>
+                <td>${{ "%.2f"|format(item.precio_con_ganancia) }}</td>
+                <td>${{ "%.2f"|format(item.subtotal) }}</td>
+                <td>${{ "%.2f"|format(item.iva) }}</td>
+                <td>${{ "%.2f"|format(item.total) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Totales generales -->
+    <div class="factura-total text-end mt-3">
+        <p><strong>Subtotal:</strong> ${{ "%.2f"|format(subtotal) }}</p>
+        <p><strong>IVA:</strong> ${{ "%.2f"|format(iva) }}</p>
+        <h4 class="text-primary"><strong>Total:</strong> ${{ "%.2f"|format(total) }}</h4>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="factura-actions mt-3">
+        <a href="/facturas/pdf/{{ factura.id_factura }}" class="btn btn-primary">Descargar PDF</a>
+        <a href="/facturas" class="btn btn-secondary">Volver</a>
+    </div>
+</div>
+{% endblock %}

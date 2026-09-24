@@ -1,0 +1,291 @@
+/* Importación de tipografía oficial de Google */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Variables de diseño */
+:root {
+    --google-blue: #1a73e8;
+    --google-blue-hover: #1557b0;
+    --google-bg: #f8f9fa;
+    --google-card-bg: #ffffff;
+    --google-text-primary: #202124;
+    --google-text-secondary: #5f6368;
+    --google-border: #dadce0;
+    --google-shadow: 0 1px 3px rgba(60,64,67,0.12), 0 1px 2px rgba(60,64,67,0.24);
+}
+
+/* Estilo general */
+body {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    background-color: var(--google-bg);
+    margin: 0;
+    padding: 0;
+    color: var(--google-text-primary);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+/* Navbar Bootstrap */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Contenido principal */
+main.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 20px;
+}
+
+/* Formularios estilo tarjeta */
+main form {
+    background: var(--google-card-bg);
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    border: 1px solid var(--google-border);
+    box-shadow: 0 1px 2px rgba(60,64,67,0.05);
+}
+
+main form input, 
+main form select, 
+main form textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border: 1px solid var(--google-border);
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: var(--google-text-primary);
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+main form input:focus, 
+main form select:focus, 
+main form textarea:focus {
+    outline: none;
+    border-color: var(--google-blue);
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+/* Botón estilo Google */
+main form button {
+    display: block;
+    width: 100%;
+    background-color: var(--google-blue);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 2px rgba(60,64,67,0.3);
+}
+
+main form button:hover {
+    background-color: var(--google-blue-hover);
+    box-shadow: var(--google-shadow);
+}
+
+/* Listas de contenido */
+main ul:not(.navbar-nav):not(.dropdown-menu) {
+    list-style: none;
+    padding: 0;
+}
+
+main ul:not(.navbar-nav):not(.dropdown-menu) > li {
+    background: var(--google-card-bg);
+    margin-bottom: 10px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--google-border);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+main ul:not(.navbar-nav):not(.dropdown-menu) > li:hover {
+    border-color: #bdc1c6;
+    box-shadow: var(--google-shadow);
+}
+
+/* Footer */
+footer {
+    background-color: #f2f2f2;
+    color: var(--google-text-secondary);
+    text-align: center;
+    padding: 16px;
+    font-size: 0.85rem;
+    border-top: 1px solid var(--google-border);
+}
+
+/* Factura */
+.factura-card {
+    background: var(--google-card-bg);
+    border: 1px solid var(--google-border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--google-shadow);
+}
+
+.factura-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--google-blue);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.factura-header h2 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--google-blue);
+}
+
+.factura-cliente p {
+    margin: 4px 0;
+    color: var(--google-text-secondary);
+}
+
+.factura-detalle {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.factura-detalle th {
+    background-color: var(--google-blue);
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+    font-weight: 500;
+}
+
+.factura-detalle td {
+    border: 1px solid var(--google-border);
+    padding: 10px;
+    font-size: 0.95rem;
+}
+
+.factura-total {
+    text-align: right;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--google-blue);
+}
+
+.factura-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.factura-actions a {
+    background-color: var(--google-blue);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.factura-actions a:hover {
+    background-color: var(--google-blue-hover);
+}
+
+/* Estilos de impresión */
+@media print {
+    body {
+        background: #fff;
+        margin: 12mm;
+        font-family: Arial, sans-serif;
+        color: #000;
+    }
+
+    nav, .btn, footer, .factura-actions {
+        display: none !important;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: avoid;
+    }
+
+    th, td {
+        border: 1px solid #000;
+        padding: 6px 8px;
+        font-size: 13px;
+        vertical-align: middle;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .encabezado {
+        text-align: center;
+        margin-bottom: 8mm;
+    }
+
+    .encabezado h4 {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 4px;
+    }
+
+    .encabezado p {
+        font-size: 12px;
+        margin: 2px 0;
+        line-height: 1.3;
+    }
+
+    .pie-informe {
+        text-align: center;
+        margin-top: 25mm;
+        font-size: 12px;
+        border-top: 1px solid #000;
+        padding-top: 5mm;
+    }
+
+    .pie-informe p {
+        margin: 4px 0;
+    }
+
+    .encabezado, .pie-informe, table {
+        page-break-inside: avoid;
+    }
+
+    .logo {
+        width: 60px;
+        height: auto;
+        display: block;
+        margin: 0 auto 5mm auto;
+    }
+}

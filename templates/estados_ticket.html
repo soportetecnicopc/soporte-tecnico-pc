@@ -1,0 +1,29 @@
+<h2>📊 Historial de Estados del Ticket {{ id_ticket }}</h2>
+
+<table border="1">
+  <tr>
+    <th>Estado</th>
+    <th>Fecha</th>
+  </tr>
+  {% for e in estados %}
+  <tr>
+    <td>
+      {% if e.estado == "Recibido" %}
+        <span style="color:red;">🔴 {{ e.estado }}</span>
+      {% elif e.estado == "En reparación" %}
+        <span style="color:orange;">🟡 {{ e.estado }}</span>
+      {% elif e.estado == "Listo para entrega" %}
+        <span style="color:green;">🟢 {{ e.estado }}</span>
+      {% else %}
+        {{ e.estado }}
+      {% endif %}
+    </td>
+    <td>{{ e.fecha }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<hr>
+<div style="margin-top:20px;">
+    <a href="{{ url_for('tickets.gestionar_tickets') }}">⬅️ Volver a Tickets</a> |
+    <a href="{{ url_for('equipos.listar_equipos') }}">⬅️ Volver a Equipos</a>
+</div>

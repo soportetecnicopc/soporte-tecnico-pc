@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Configuración del Sistema{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Configuración del Sistema</h3>
+    <form method="POST" action="{{ url_for('configuracion.configuracion') }}">
+        <div class="form-group mb-3">
+            <label for="iva_porcentaje">IVA (%)</label>
+            <input type="number" step="0.01" class="form-control" id="iva_porcentaje" name="iva_porcentaje"
+                   value="{{ config.iva_porcentaje }}" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="ganancia_porcentaje">Ganancia (%)</label>
+            <input type="number" step="0.01" class="form-control" id="ganancia_porcentaje" name="ganancia_porcentaje"
+                   value="{{ config.ganancia_porcentaje }}" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="stock_minimo">Stock mínimo</label>
+            <input type="number" class="form-control" id="stock_minimo" name="stock_minimo"
+                   value="{{ config.stock_minimo }}" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="fecha_actualizacion">Última actualización</label>
+            <input type="text" class="form-control" id="fecha_actualizacion"
+                   value="{{ config.fecha_actualizacion }}" readonly>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    </form>
+</div>
+{% endblock %}

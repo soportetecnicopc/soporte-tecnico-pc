@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Equipos{% endblock %}
+
+{% block content %}
+
+<div class="alert alert-warning mt-3" role="alert">
+  ⚠️ No se puede eliminar: el equipo tiene tickets asociados.
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} mt-3" role="alert"></div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
+<h1 class="mb-4">Registro de Equipos</h1>
+
+<!-- Formulario de registro de equipos -->
+<form method="POST" action="/equipos" class="mb-4">
+    <div class="mb-3">
+        <label for="cliente" class="form-label">Cliente:</label>
+        <select name="id_cliente" id="cliente" class="form-select" required>
+            {% for cliente in clientes %}
+                <option value="{{ cliente['id_cliente'] }}">
+                    {{ cliente['nombres'] }} {{ cliente['apellidos'] }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="marca" class="form-label">Marca:</label>
+        <input type="text" name="marca" id="marca" class="form-control" placeholder="Marca" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="modelo" class="form-label">Modelo:</label>
+        <input type="text" name="modelo" id="modelo" class="form-control" placeholder="Modelo" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="serie" class="form-label">Serie:</label>
+        <input type="text" name="serie" id="serie" class="form-control" placeholder="Serie">
+    </div>
+
+    <div class="mb-3">
+        <label for="observaciones" class="form-label">Observaciones:</label>
+        <textarea name="observaciones" id="observaciones" class="form-control" placeholder="Observaciones"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="accesorios" class="form-label">Accesorios:</label>
+        <input type="text" name="accesorios" id="accesorios" class="form-control" placeholder="Accesorios">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+<!-- Lista de equipos -->
+<h2 class="mb-3">Lista de Equipos</h2>
+
+<div class="accordion" id="equiposAccordion">
+    {% for equipo in registros %}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading{{ equipo['id_equipo'] }}">
+            <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapse{{ equipo['id_equipo'] }}"
+                    aria-expanded="false"
+                    aria-controls="collapse{{ equipo['id_equipo'] }}">
+                {{ equipo['marca'] }} {{ equipo['modelo'] }} (Serie: {{ equipo['serie'] }})
+                - Cliente: {{ equipo['nombres'] }} {{ equipo['apellidos'] }}
+            </button>
+        </h2>
+        <div id="collapse{{ equipo['id_equipo'] }}"
+             class="accordion-collapse collapse"
+             aria-labelledby="heading{{ equipo['id_equipo'] }}"
+             data-bs-parent="#equiposAccordion">
+            <div class="accordion-body">
+                <p><strong>Observaciones:</strong> {{ equipo['observaciones'] }}</p>
+                <p><strong>Accesorios:</strong> {{ equipo['accesorios'] }}</p>
+
+                <div class="d-flex gap-2 mb-3">
+                    <a href="/equipos/editar/{{ equipo['id_equipo'] }}" class="btn btn-sm btn-primary">Editar</a>
+                    <form action="/equipos/eliminar/{{ equipo['id_equipo'] }}" method="POST">
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    </form>
+                    <!-- Botón para ver tickets asociados -->
+                    <a href="{{ url_for('tickets.tickets_por_equipo', id_equipo=equipo['id_equipo']) }}" class="btn btn-sm btn-success">
+                        🎫 Ver Tickets
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="mt-3">
+    <a href="/clientes" class="btn btn-secondary">⬅️ Volver a Clientes</a>
+    <a href="/" class="btn btn-secondary">⬅️ Volver al Panel Principal</a>
+</div>
+{% endblock %}

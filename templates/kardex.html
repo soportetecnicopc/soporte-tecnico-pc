@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+{% include 'encabezado.html' %}
+<div class="datos-informe text-center mb-3">
+    <p><strong>Producto:</strong> {{ kardex[0].nombre if kardex else 'Sin registros' }}</p>
+    <p><strong>Fecha de emisión:</strong> {{ fecha_actual }}</p>
+</div>
+
+<div class="container mt-4">
+    <h2>Kardex del producto</h2>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Motivo</th>
+                <th>Cantidad</th>
+                <th>Saldo</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mov in kardex %}
+            <tr>
+                <td>{{ mov.fecha }}</td>
+                <td>{{ mov.tipo }}</td>
+                <td>{{ mov.motivo }}</td>
+                <td>{{ mov.cantidad }}</td>
+                <td>{{ mov.saldo }}</td>
+                <td>{{ mov.observaciones }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        </br>
+        </br>
+    <footer class="pie-informe text-center mt-4">
+    <p><strong>Firma del técnico responsable:</strong> ____________________________</p>
+    <p><em>Soporte Técnico PCs - Control de Inventario</em></p>
+    </footer>
+    <button onclick="window.print()" class="btn btn-primary mt-3">🖨️ Imprimir Kardex</button>
+</div>
+{% endblock %}
+
+
+
+

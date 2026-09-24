@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Clientes{% endblock %}
+
+{% block content %}
+<a href="/equipos">Ir a registro de equipos</a>
+<a href="/">Volver al Panel Principal</a>
+<h1>Registro de Clientes</h1>
+
+<form method="POST" action="/clientes">
+    <input type="text" name="nombres" placeholder="Nombres" required><br>
+    <input type="text" name="apellidos" placeholder="Apellidos" required><br>
+    <input type="text" name="cedula" placeholder="Cédula" required><br>
+    <input type="text" name="telefono_fijo" placeholder="Teléfono fijo"><br>
+    <input type="text" name="telefono_celular" placeholder="Teléfono celular"><br>
+    <input type="text" name="direccion" placeholder="Dirección"><br>
+    <input type="email" name="correo" placeholder="Correo"><br>
+    <button type="submit">Guardar</button>
+</form>
+
+<hr>
+
+<!-- 🔎 Búsqueda de cliente por cédula -->
+<h2>Buscar Cliente</h2>
+<form method="POST" action="/clientes/buscar" class="mb-3">
+    <input type="text" name="cedula" placeholder="Ingrese número de cédula" required>
+    <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+</form>
+
+{% if cedula %}
+    <h3>Resultados para cédula: {{ cedula }}</h3>
+    {% if cliente %}
+        <table class="table table-bordered">
+            <tr><th>ID</th><td>{{ cliente.id_cliente }}</td></tr>
+            <tr><th>Nombres</th><td>{{ cliente.nombres }}</td></tr>
+            <tr><th>Apellidos</th><td>{{ cliente.apellidos }}</td></tr>
+            <tr><th>Cédula</th><td>{{ cliente.cedula }}</td></tr>
+            <tr><th>Teléfono fijo</th><td>{{ cliente.telefono_fijo }}</td></tr>
+            <tr><th>Teléfono celular</th><td>{{ cliente.telefono_celular }}</td></tr>
+            <tr><th>Dirección</th><td>{{ cliente.direccion }}</td></tr>
+            <tr><th>Correo</th><td>{{ cliente.correo }}</td></tr>
+        </table>
+    {% else %}
+        <p class="text-danger">No se encontró ningún cliente con esa cédula.</p>
+    {% endif %}
+{% endif %}
+
+<hr>
+
+<h2 class="mb-3">Lista de Clientes</h2>
+<div class="accordion" id="clientesAccordion">
+    {% for cliente in registros %}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading{{ cliente['id_cliente'] }}">
+            <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapse{{ cliente['id_cliente'] }}"
+                    aria-expanded="false"
+                    aria-controls="collapse{{ cliente['id_cliente'] }}">
+                {{ cliente['nombres'] }} {{ cliente['apellidos'] }} - {{ cliente['cedula'] }}
+            </button>
+        </h2>
+        <div id="collapse{{ cliente['id_cliente'] }}"
+             class="accordion-collapse collapse"
+             aria-labelledby="heading{{ cliente['id_cliente'] }}"
+             data-bs-parent="#clientesAccordion">
+           <div class="accordion-body">
+                <p><strong>Teléfono fijo:</strong> {{ cliente['telefono_fijo'] }}</p>
+                <p><strong>Teléfono celular:</strong> {{ cliente['telefono_celular'] }}</p>
+                <p><strong>Dirección:</strong> {{ cliente['direccion'] }}</p>
+                <p><strong>Correo:</strong> {{ cliente['correo'] }}</p>
+
+                <div class="d-flex gap-2">
+                    <a href="/clientes/editar/{{ cliente['id_cliente'] }}" class="btn btn-sm btn-primary">Editar</a>
+                    <form action="/clientes/eliminar/{{ cliente['id_cliente'] }}" method="POST">
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

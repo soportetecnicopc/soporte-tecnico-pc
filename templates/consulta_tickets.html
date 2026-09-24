@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Tickets</title>
+</head>
+<body>
+    <h1>Consulta de Tickets</h1>
+
+    <!-- Formulario de ingreso -->
+    <form method="POST">
+        <label for="cedula">Ingrese su número de cédula:</label>
+        <input type="text" id="cedula" name="cedula" required>
+        <button type="submit">Consultar</button>
+    </form>
+
+    {% if cedula %}
+        <h2>Resultados para cédula: {{ cedula }}</h2>
+        {% if equipos %}
+            <table border="1">
+                <tr>
+                    <th>Número Ticket</th>
+                    <th>Equipo</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                </tr>
+                {% for e in equipos %}
+                <tr>
+                    <td>{{ e.numero_ticket }}</td>
+                    <td>{{ e.marca }} {{ e.modelo }}</td>
+                    <td>
+                        {% if e.estado == "Recibido" %}
+                            🔴 {{ e.estado }}
+                        {% elif e.estado == "En reparación" %}
+                            🟡 {{ e.estado }}
+                        {% elif e.estado == "Listo para entrega" %}
+                            🟢 {{ e.estado }}
+                        {% else %}
+                            ⚪ {{ e.estado }}
+                        {% endif %}
+                    </td>
+                    <td>{{ e.fecha_creacion }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No se encontraron tickets asociados a esta cédula.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

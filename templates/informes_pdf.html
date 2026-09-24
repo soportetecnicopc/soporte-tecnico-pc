@@ -1,0 +1,25 @@
+<h1>Informe General</h1>
+
+<h2>Clientes</h2>
+<table border="1">
+  <tr><th>Nombre</th><th>Apellidos</th><th>Cédula</th></tr>
+  {% for c in clientes %}
+    <tr><td>{{ c.nombres }}</td><td>{{ c.apellidos }}</td><td>{{ c.cedula }}</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Productos</h2>
+<table border="1">
+  <tr><th>Nombre</th><th>Stock</th></tr>
+  {% for p in productos %}
+    <tr><td>{{ p.nombre }}</td><td>{{ p.stock }}</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Movimientos</h2>
+<table border="1">
+  <tr><th>Tipo</th><th>Cantidad</th><th>Producto</th></tr>
+  {% for m in movimientos %}
+    <tr><td>{{ m.tipo }}</td><td>{{ m.cantidad }}</td><td>{{ m.nombre }}</td></tr>
+  {% endfor %}
+</table>
